@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import AppBar from './components/AppBar';
@@ -10,7 +10,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
-  async function fetchUser() {
+  const fetchUser = useCallback(async () => {
     setIsLoading(true);
     const res = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
       headers: {
@@ -23,11 +23,11 @@ function App() {
       dispatch(setUser(user));
     }
     setIsLoading(false);
-  }
+  }, [dispatch, token]);
 
   useEffect(() => {
     fetchUser();
-  });
+  }, [fetchUser]);
 
   if (isLoading) {
     return <p>Loading ...</p>;
