@@ -21,11 +21,16 @@ const InitialForm = {
 export default function TransactionForm({ fetchTransctions, editTransaction }) {
   const token = Cookies.get('token');
   const [form, setForm] = useState(InitialForm);
+  const [isEditing, setIsEditing] = useState(false);
   const Categories = ['Travel', 'Shopping', 'Bills', 'Investment', 'Misc'];
 
   useEffect(() => {
     if (editTransaction.amount !== undefined) {
       setForm(editTransaction);
+      setIsEditing(true); // Set isEditing to true when editTransaction is provided
+    } else {
+      setForm(InitialForm);
+      setIsEditing(false); // Set isEditing to false when editTransaction is empty
     }
   }, [editTransaction]);
 
@@ -39,7 +44,11 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    editTransaction.amount === undefined ? create() : update();
+    isEditing ? update() : create(); // Use isEditing state variable to determine the action
+
+    // Reset the form and toggle isEditing
+    setForm(InitialForm);
+    setIsEditing(false);
   }
 
   function reload(res) {
@@ -127,13 +136,13 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
             )}
           />
 
-          {editTransaction.amount !== undefined && (
+          {isEditing && ( // Use isEditing state variable to determine button rendering
             <Button type='submit' variant='secondary'>
               Update
             </Button>
           )}
 
-          {editTransaction.amount === undefined && (
+          {!isEditing && ( // Use isEditing state variable to determine button rendering
             <Button type='submit' variant='contained'>
               Submit
             </Button>
