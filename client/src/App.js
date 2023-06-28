@@ -1,12 +1,12 @@
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Outlet } from "react-router-dom";
-import AppBar from "./components/AppBar";
-import { setUser } from "./store/auth.js";
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import AppBar from './components/AppBar';
+import { setUser } from './store/auth.js';
 
 function App() {
-  const token = Cookies.get("token");
+  const token = Cookies.get('token');
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  });
 
   if (isLoading) {
     return <p>Loading ...</p>;
