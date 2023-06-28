@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../store/auth.js';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -42,14 +40,8 @@ var d = {
   ],
 };
 
-const icons = ['User'];
-
 export default function CategoryForm() {
-  const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-  const token = Cookies.get('token');
   const [form, setForm] = useState(InitialForm);
-  const [filters, setFilter] = useState([]);
 
   async function fetchFilterList() {
     const token = Cookies.get('token');
@@ -69,7 +61,6 @@ export default function CategoryForm() {
     console.log('Hey response', res);
     d = await res.json();
     console.log(`Response i ${JSON.stringify(d)}`);
-    setFilter(d);
   }
 
   function handleChange(e) {
@@ -84,20 +75,10 @@ export default function CategoryForm() {
     setForm({ ...form, eDate: newValue });
   }
 
-  function handleCategory(newValue) {
-    setForm({ ...form, category: newValue });
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
     console.log('qewqe');
     fetchFilterList();
-  }
-
-  function reload(res, _user) {
-    if (res.ok) {
-      dispatch(setUser({ user: _user }));
-    }
   }
 
   function categoryName(name) {
@@ -106,7 +87,7 @@ export default function CategoryForm() {
 
   function formatDate(date) {
     console.log(date);
-    if (date == undefined) {
+    if (date === undefined) {
       return '';
     }
     return dayjs(date).format('DD MMM, YYYY');

@@ -45,7 +45,7 @@ export default function BillForm() {
     let user_list = data.all_users || [];
     let final_list = [];
     user_list.forEach((user) => {
-      if (user._id != logged_user._id) {
+      if (user._id !== logged_user._id) {
         let data = {
           value: user._id,
           label: user.email,
@@ -58,7 +58,7 @@ export default function BillForm() {
 
   async function create() {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/split`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/split`, {
         method: 'POST',
         body: JSON.stringify(form),
         headers: {

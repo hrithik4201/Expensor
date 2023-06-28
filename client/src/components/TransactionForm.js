@@ -10,7 +10,6 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const InitialForm = {
   amount: 0,
@@ -51,6 +50,7 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
   }
 
   async function create() {
+    console.log('token :: ', token);
     const res = await fetch(`${process.env.REACT_APP_API_URL}/transaction`, {
       method: 'POST',
       body: JSON.stringify(form),

@@ -12,13 +12,12 @@ import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+
 export default function TransactionsList({
   data,
   fetchTransctions,
   setEditTransaction,
 }) {
-  const user = useSelector((state) => state.auth.user);
   function categoryName(name) {
     console.log(name);
     return name ? name.toUpperCase() : 'NA';

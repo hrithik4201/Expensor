@@ -1,6 +1,6 @@
 import { components } from 'react-select';
 
-export default Option = (props) => {
+const Option = (props) => {
   return (
     <div>
       <components.Option {...props}>
@@ -14,3 +14,5 @@ export default Option = (props) => {
     </div>
   );
 };
+
+export default Option;
