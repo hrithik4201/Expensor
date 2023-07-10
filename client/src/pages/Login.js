@@ -87,6 +87,11 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <div>
+            <p>Test Credentials:</p>
+            <p>Email: joe@gmail.com</p>
+            <p>Password: Qwerty12345!</p>
+          </div>
           <Grid container>
             <Grid item>
               <RouterLink to='/register'>
